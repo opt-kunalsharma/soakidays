@@ -1,0 +1,169 @@
+<style>
+  {%- for block in section.blocks -%}
+  {%- case block.type -%}
+  {%- when 'header_color_4' -%}
+  {%- if block.settings.header_middle_color_enable -%}
+  .ltn__header-4 .ltn__header-middle-area, .ltn__header-5 .ltn__header-middle-area, .ltn__header-3 .ltn__header-middle-area{
+    background: {{ block.settings.header_bg_color }};
+  }
+  .ltn__header-options .ltn__drop-menu>ul>li>a, .ltn__header-options, .mini-cart-icon, .mini-cart-icon-2 > a .mini-cart-icon i, 
+  .header-feature-item p, .header-feature-item p a, .header-feature-item h6, .ltn__drop-menu>ul>li .disclosure__button:before{
+    color: {{ block.settings.header_color }};
+  }
+  .header-feature-icon {
+    color: {{ block.settings.support_icon_color }};
+  }
+  .mini-cart-icon.mini-cart-icon-2 .ltn__secondary-color {
+    color: {{ block.settings.mini_cart_price_color }}!important;
+      }
+  .mini-cart-icon-2 > a .mini-cart-icon sup{
+  	background-color: {{ block.settings.mini_cart_price_color }};
+  }
+  .sticky-active.ltn__sticky-bg-white{
+    background: {{ block.settings.header_sticky_bg_color }};
+  }
+  .sticky-active.ltn__sticky-bg-white .header-feature-icon, .sticky-active.ltn__sticky-bg-white .header-feature-item h6, .sticky-active.ltn__sticky-bg-white .header-feature-item p, .sticky-active.ltn__sticky-bg-white .header-search-1 .search-icon, .sticky-active.ltn__sticky-bg-white .header-wishlist a, .sticky-active.ltn__sticky-bg-white .ltn__main-menu>ul>li>a, .sticky-active.ltn__sticky-bg-white .mini-cart-icon,
+  .sticky-active.ltn__sticky-bg-white .get-support .get-support-info h6, .sticky-active.ltn__sticky-bg-white .get-support .get-support-info h4 p{
+  	color: {{ block.settings.header_sticky_color }};
+  }
+  {%- endif -%}
+  {%- if block.settings.menu_color_enable -%}
+  .header-bottom-area {
+    background-color: {{ block.settings.menu_bg_color }}; 
+    border-top: 1px solid {{ block.settings.border_top_color }};
+  }
+  .ltn__main-menu>ul>li>a{
+    color: {{ block.settings.menu_color }};
+  }
+  {%- endif -%}
+  {%- endcase -%}
+  {%- endfor -%}
+</style>
+
+{% liquid
+  assign sticky_header = true
+  if template == '404' or template == 'customers/login' or template == 'customers/register' or template == 'customers/account' or template == 'customers/activate_account' or template == 'customers/addresses' or template == 'customers/order' or template == 'customers/reset_password'
+    assign sticky_header = false
+  endif
+
+  assign header_border = false
+  if template == '404' or template == 'product' or template == 'article' or template == 'article.service' or template == 'customers/login' or template == 'customers/register' or template == 'customers/account' or template == 'customers/activate_account' or template == 'customers/addresses' or template == 'customers/order' or template == 'customers/reset_password'
+    assign header_border = true
+  endif
+
+  if template == 'collection' and collection.handle != 'all'
+    assign header_border = true
+  endif
+%}
+
+<header id="section-{{ section.id }}" data-section="headerSection" class="{% if header_border %}border-bottom{% endif %} ltn__header-area ltn__header-3 section-bg-6 d-none d-sm-none d-md-none d-lg-none d-xl-block">
+
+  {%- for block in section.blocks -%}
+  {%- case block.type -%}
+  {%- when 'header_top' -%}
+  {%- unless template != 'index' and block.settings.disable_header_top -%}
+  {%- render 'header-top', block: block -%}
+  {%- endunless -%}
+  {%- endcase -%}
+  {%- endfor -%}
+  
+  <!-- ltn__header-middle-area start -->
+  <div class="ltn__header-middle-area">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-4 header-contact-serarch-column d-none d-lg-block">
+          <div class="header-contact-search">
+            <!-- header-feature-item -->
+            {%- if section.settings.support_title != '' or section.settings.support_number != '' -%}
+            <div class="header-feature-item">
+              <div class="header-feature-icon">
+                <i class="icon-call"></i>
+              </div>
+              <div class="header-feature-info">
+                {%- if section.settings.support_title != '' -%}
+                <h6>{{ section.settings.support_title }}</h6>
+                {%- endif -%}
+                {%- if section.settings.support_number != '' -%}
+                <p>{{ section.settings.support_number }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+            {%- endif -%}
+          </div>
+        </div>
+        
+        <div class="col-4">
+          <div class="site-logo justify-content-center">
+            {%- render 'header-logo' -%}
+          </div>
+        </div>
+        
+        <div class="col-4">
+          <div class="ltn__header-options">
+            {%- if settings.currency_enable -%} 
+            {%- if settings.currency_handle == 'shopify_currency' -%}
+            {% if localization.available_countries.size > 1 %}
+            <div class="ltn__drop-menu ltn__currency-menu default-currency-menu">
+              <ul>
+                <li>
+                  <localization-form>
+                    {% form 'localization' %}
+                      <div class="disclosure">
+                        <button type="button" class="disclosure__button" aria-expanded="false" aria-controls="CountryList">
+                          {{ localization.country.iso_code }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
+                        </button>
+                
+                        <ul id="CountryList" role="list" class="disclosure__list">
+                          {% for country in localization.available_countries %}
+                            <li class="disclosure__item" tabindex="-1">
+                              <a href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                                {{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})
+                              </a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                
+                        <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                      </div>
+                    {% endform %}
+                  </localization-form>
+                <li>
+              </ul>
+            </div>
+            {% endif %}
+            {%- elsif settings.currency_handle == 'ajax_currency' -%}
+            <div class="ltn__drop-menu ltn__currency-menu">
+              {%- render 'currency-picker' -%}
+            </div>
+            {%- endif -%}
+            {%- endif -%}
+            {%- render 'header-option' -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- ltn__header-middle-area end -->
+  <!-- header-bottom-area start -->
+  <div class="header-bottom-area ltn__border-top {% if section.settings.sticky_header_enable and sticky_header %}ltn__header-sticky{% endif %} ltn__sticky-bg-white ltn__primary-bg--- section-bg-1 menu-color-white--- d-none d-lg-block">
+    <div class="container">
+      <div class="row">
+        <div class="col header-menu-column justify-content-center">
+          <div class="sticky-logo">
+            <div class="site-logo">
+              {%- render 'header-logo' -%}
+            </div>
+          </div>
+          <div class="header-menu header-menu-2">
+            {%- render 'main-menu' -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- header-bottom-area end -->
+</header>
+
+{%- render 'mini-cart' -%}
+{%- render 'mobile-header' -%}

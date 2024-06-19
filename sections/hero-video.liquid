@@ -1,0 +1,412 @@
+{%- render 'section-style' -%}
+<style>
+  .ltn__banner-item-full-width{
+    position: relative;
+  }
+  .slide-item-info.full-width-banner-info {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 100%;
+      transform: translate(-50%,-50%);
+      z-index: 1;
+  }
+  .slide-item-info.full-width-banner-info {
+      width: 100%;
+      padding-right: 15px;
+      padding-left: 15px;
+      margin-right: auto;
+      margin-left: auto;
+  }
+  .ltn__banner-video video{
+    width: 100%;
+  }
+  #section-{{ section.id }} .for-mobile{
+    display: none;
+  }
+  @media (min-width: 576px) {
+    .slide-item-info.full-width-banner-info {
+        max-width: 540px;
+    }
+  }
+  @media (min-width: 767px) {
+    .slide-item-info.full-width-banner-info {
+        max-width: 720px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .slide-item-info.full-width-banner-info {
+        max-width: 1200px;
+    }
+  }
+  @media (max-width: 767px) {
+/*     .slide-item-info.full-width-banner-info {
+        position: static;
+        margin: 0 auto;
+        transform: unset;
+        text-align: center;
+        margin-bottom: 20px;
+    } */
+    #section-{{ section.id }} .for-desktop{
+      display: none;
+    }
+    #section-{{ section.id }} .for-mobile{
+      display: block;
+    }
+  }
+</style>
+
+
+<div class="ltn__banner-area full-width-banner" data-section="heroVideo" id="section-{{ section.id }}">
+  <div class="container-fluid--">
+    <div class="row-- justify-content-center">
+      
+      <div class="col-sm-12--">
+        <div class="ltn__banner-item-full-width" id="block-{{ block.id }}">
+          <div class="slide-item-info full-width-banner-info">
+            <div class="slide-item-info-inner text-center">
+              {%- if section.settings.slide_sub_title != '' -%}
+              <h4 class="slide-sub-title ltn__secondary-color">{{ section.settings.slide_sub_title }}</h4>
+              {%- endif -%}
+              {%- if section.settings.slide_title != '' -%}
+              <h1 class="slide-title">{{ section.settings.slide_title }}</h1>
+              {%- endif -%}
+              {%- if section.settings.slide_content != '' -%}
+              <div class="slide-brief">
+                <p>{{ section.settings.slide_content }}</p>
+              </div>
+              {%- endif -%}
+              {%- if section.settings.slide_button_title != '' -%}
+              <div class="btn-wrapper ">
+                <a href="{{ section.settings.slide_button_url }}" class="theme-btn-1 btn btn-effect-1">{{ section.settings.slide_button_title }}</a>
+              </div>
+              {%- endif -%}
+            </div>
+          </div>
+          
+          <div class="ltn__banner-video">
+            <video autoplay muted loop id="heroVideo">
+              <source src="{{ section.settings.video_url }}" type="video/mp4">
+            </video>
+          </div>
+
+          
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{%- if section.settings.section_color_enable -%}
+<style>
+  #section-{{ section.id }} .ltn__secondary-color {
+    color: {{ section.settings.sub_title_color }} !important;
+  }
+  #section-{{ section.id }} .slide-title {
+    color: {{ section.settings.title_color }};
+  }
+  #section-{{ section.id }} p{
+    color: {{ section.settings.content_color }};
+  }
+  #section-{{ section.id }} .theme-btn-1 {
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
+  }
+  #section-{{ section.id }} .btn-effect-1:hover {
+    color: {{ section.settings.button_text_hover_color }};
+  }
+  #section-{{ section.id }} .theme-btn-1:hover {
+    background-color: {{ section.settings.button_bg_hover_color }};
+  }
+</style>
+{%- endif -%}
+
+{% schema %}
+  {
+    "name": "Hero Video",
+    "disabled_on": {
+      "groups": ["header", "footer"]
+    },
+    "settings": [	
+      {
+        "type": "textarea",
+        "id": "video_url",
+        "label": "Video URL",
+        "default": "https://cdn.shopify.com/s/files/1/0259/5877/6892/files/1.mp4?v=1629649348",
+        "info": "Upload your video in the [Files](https://www.shopify.com/admin/settings/files) and put the URL here"
+      },
+      {
+        "type": "text",
+        "id": "slide_sub_title",
+        "label": "Sub Title",
+        "default": "Slide Sub Title"
+      },
+      {
+        "type": "textarea",
+        "id": "slide_title",
+        "label": "Title",
+        "default": "Slide Title"
+      },
+      {
+        "type": "textarea",
+        "id": "slide_content",
+        "label": "Content",
+        "default": "Slide content here"
+      },
+      {
+        "type": "text",
+        "id": "slide_button_title",
+        "label": "Button Title",
+        "default": "Shop Now"
+      },
+      {
+        "type": "url",
+        "id": "slide_button_url",
+        "label": "URL"
+      },
+        {
+          "type": "header",
+          "content": "Color"
+        },
+        {
+          "type": "checkbox",
+          "id": "section_color_enable",
+          "label": "Color Enable",
+          "default": false,
+          "info": "Enable the field for color customization"
+        },
+        {
+          "type": "color",
+          "id": "sub_title_color",
+          "label": "Sub Title Color",
+          "default": "#e53e29"
+        },
+        {
+          "type": "color",
+          "id": "title_color",
+          "label": "Title Color",
+          "default": "#071c1f"
+        },
+        {
+          "type": "color",
+          "id": "content_color",
+          "label": "Content Color",
+          "default": "#071c1f"
+        },
+        {
+          "type": "color",
+          "id": "button_text_color",
+          "label": "Button text Color",
+          "default": "#fff"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_color",
+          "label": "Button BG Color",
+          "default": "#e53e29"
+        },
+        {
+          "type": "color",
+          "id": "button_text_hover_color",
+          "label": "Button text Hover Color",
+          "default": "#071c1f"
+        },
+        {
+          "type": "color",
+          "id": "button_bg_hover_color",
+          "label": "Button BG Hover Color",
+          "default": "#071c1f"
+        }
+	],
+	"blocks":[
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 85
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 55
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 35
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablet Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Hero Video",
+		  "category": "1. hero/slideshow",
+		  "blocks":[
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}

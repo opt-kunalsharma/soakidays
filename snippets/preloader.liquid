@@ -1,0 +1,106 @@
+{% comment %}
+  <!-- preloader area start -->
+  <div class="preloader d-none---" id="preloader">
+    <div class="preloader-inner">
+      <div class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+      </div>
+    </div>
+  </div>
+  <!-- preloader area end -->
+
+  <script>
+    $(window).on('load',function(){
+      /*-----------------
+              preloader
+          ------------------*/
+      if($('#preloader').length){
+        var preLoder = $("#preloader");
+        preLoder.fadeOut(1000);
+
+      };
+    });
+  </script>
+{% endcomment %}
+
+<!-- preloader area start -->
+<div class="preloader" id="preloader">
+  <div class="preloader-inner">
+    <div class="spinner">
+      <div class="dot1"></div>
+      <div class="dot2"></div>
+    </div>
+  </div>
+</div>
+<!-- preloader area end -->
+
+<script>
+  $(window).on('load', function() {
+    /*-----------------
+            preloader
+        ------------------*/
+    if($('#preloader').length) {
+      var preLoder = $("#preloader");
+      preLoder.fadeOut(1000);
+    }
+  });
+</script>
+
+<style>
+      /* Preloader styles */
+  .preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: rgba(255, 255, 255, 0.9); /* White background with slight opacity */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .preloader-inner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .spinner {
+    position: relative;
+    width: 50px;
+    height: 50px;
+  }
+
+  .spinner .dot1, .spinner .dot2 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #f9973e;
+    opacity: 0;
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  .spinner .dot2 {
+    animation-delay: -1s;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Hide preloader after load */
+  .d-none {
+    display: none;
+  }
+</style>
