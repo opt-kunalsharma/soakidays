@@ -19,6 +19,7 @@ endif
 <!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="{{ request.locale.iso_code }}" {% if theme_rtl %}dir="rtl"{% endif %}> <!--<![endif]-->
 
 <head>
+   {%- render 'header_file' -%}
   <!-- Basic and Helper page needs -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -52,7 +53,15 @@ endif
   {%- render 'typography-and-color' -%}
 
   <!-- Header hook for plugins -->
-  {{ content_for_header }}
+  
+    {%- if request.design_mode or template contains 'cart' or template contains 'checkout' -%}
+            {{ content_for_header }}
+    {%- else -%}
+            {% capture content_for_header2 %}{{ content_for_header }}{% endcapture %}
+            {{ content_for_header2 | replace: ' defer="defer" ', ' type="lazyload_js" ' | replace: " src=", " data-src="| replace: "DOMContentLoaded", "appco-DOMContentLoaded" | replace: "window.addEventListener('load', asyncLoad, false);", "window.addEventListener('appco-DOMContentLoaded', asyncLoad, false);" | replace: "addEventListener('load', prefetchAssets);", "addEventListener('appco-DOMContentLoaded', prefetchAssets);" }}
+            <script>var trekkie=[];trekkie.integrations=!0;window.BOOMR={},window.BOOMR.version=true;</script>
+    {%- endif -%}
+  
   {%- render 'oldIE-js' -%}
 
   <!-- CSS -->
@@ -65,11 +74,18 @@ endif
   {%- endif -%}
   
   <!-- JS -->
-  {%- render 'header-js' -%}
+  
+  	{% if template contains 'cart' or template contains 'product' %}
+		{%- render 'header-js2' -%}
+	{% else %}
+		{%- render 'header-js' -%}
+	{% endif %}
 
   {% if template contains 'customers' %}
   {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
   {% endif %}
+
+  {%- render 'custom-css' -%}
 </head>
 
 <body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template.name | handle }}" >
@@ -111,7 +127,12 @@ endif
   {%- render 'compare-popup' -%}
   {%- endif -%}
   <!-- Necessary JS -->
-  {%- render 'footer-js' -%}
+    {% if template contains 'cart' or template contains 'product' %}
+		{%- render 'footer-js2' -%}
+	{% else %}
+		{%- render 'footer-js' -%}
+	{% endif %}
+  
   
   {%- if settings.body_bg_color != blank and settings.body_bg_color_enable -%}
   <style>
@@ -134,6 +155,6 @@ endif
     }
   </style>
   {%- endif -%}
-  
+  {%- render 'footer_file' -%}
 </body>
 </html>

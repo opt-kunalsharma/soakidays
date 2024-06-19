@@ -1212,8 +1212,8 @@ endif
 
 {%- if section.settings.product_zoom_enable -%}
 {%- if section.settings.product_media_enable -%}
-<script src="{{ 'jquery.zoom-master.js' | asset_url }}"></script>
-<script>
+<script type="lazyload_js" data-src="{{ 'jquery.zoom-master.js' | asset_url }}"></script>
+<script type="lazyload_js">
   function productZoom(){
     $('.product-zoom')
     .css('cursor', 'crosshair')
@@ -1224,16 +1224,16 @@ endif
   };
 </script>
 {%- else -%}
-<script src="{{ 'jquery.elevateZoom-3.0.8.min.js' | asset_url }}"></script>
+<script type="lazyload_js" data-src="{{ 'jquery.elevateZoom-3.0.8.min.js' | asset_url }}"></script>
 {%- endif -%}
 {%- endif -%}
 
 {%- if section.settings.product_popup_enable -%}
 {%- if section.settings.product_media_enable -%}
 {{ 'jquery.fancybox-3.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'jquery.fancybox-3.min.js' | asset_url }}"></script>
+<script type="lazyload_js" data-src="{{ 'jquery.fancybox-3.min.js' | asset_url }}"></script>
 
-<script>
+<script type="lazyload_js">
   $(document).ready(function() {
     $('[data-fancybox="gallery"]').fancybox();
   });
@@ -1241,7 +1241,7 @@ endif
 
 {%- else -%}
 {{ 'jquery.fancybox.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'jquery.fancybox.min.js' | asset_url }}"></script>
+<script type="lazyload_js" data-src="{{ 'jquery.fancybox.min.js' | asset_url }}"></script>
 
 <script>
   $(document).ready(function() {
@@ -1252,7 +1252,7 @@ endif
 {%- endif -%}
 
 {%- if section.settings.product_style == 'product_sticky' -%}
-<script src="{{ 'ResizeSensor-StickySidebar.js' | asset_url }}"></script>
+<script type="lazyload_js" data-src="{{ 'ResizeSensor-StickySidebar.js' | asset_url }}"></script>
 <script>
   var sidebar = new StickySidebar('#product-content', {
     containerSelector: '#product-details-with-gallery',
@@ -1265,7 +1265,7 @@ endif
 {% endif %}
 
 
-<script>
+<script type="lazyload_js">
   {% if current_variant.inventory_policy == "continue" and current_variant.inventory_quantity <= 0 %}
   // Preorder
   var var_array = {

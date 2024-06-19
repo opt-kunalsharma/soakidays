@@ -14,12 +14,11 @@
   <div class="product-img{% if settings.image_ratio == "square" %} product-img-square{% endif %}">
     {%- assign image = product.featured_image.src -%}
     <a href="{{ product.url | within: collection }}" class="image-position-wrapper primary_img" {% if settings.image_ratio == "adapt_to_image" %}style="padding-bottom: {{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;"{% endif %}>
-      <img srcset="{% if image.width >= 150 %}{{ image | img_url: '152x' }} 152w,{% endif %}
-                   {% if image.width >= 243 %}{{ image | img_url: '266x' }} 266w,{% endif %}
-                   {% if image.width >= 366 %}{{ image | img_url: '366x' }} 366w,{% endif %}
-                   {% if image.width >= 576 %}{{ image | img_url: '576x' }} 576w,{% endif %}
-                   {% if image.width >= 600 %}{{ image | img_url: '600x' }} 600w,{% endif %}"
-           src="{{ image | img_url: '600x' }}"
+      <img 
+           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+           data-class="LazyLoad"
+           data-src="{{ image | img_url: '720x' }}"
+           data-mob-src="{{ image | img_url: '480x' }}"
            sizes="100vw"
            width="{{ image.width }}"
            height="{{ image.height }}"
@@ -31,12 +30,11 @@
     {%- if product.images.size > 1 and settings.hover_second_image_enable -%}
       {%- for image in product.images limit: 1 offset: 1 -%}
       <a href="{{ product.url | within: collection }}" class="image-position-wrapper secondary_img" {% if settings.image_ratio == "adapt_to_image" %}style="padding-bottom: {{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;"{% endif %}>
-        <img srcset="{% if image.width >= 150 %}{{ image | img_url: '152x' }} 152w,{% endif %}
-                     {% if image.width >= 243 %}{{ image | img_url: '266x' }} 266w,{% endif %}
-                     {% if image.width >= 366 %}{{ image | img_url: '366x' }} 366w,{% endif %}
-                     {% if image.width >= 576 %}{{ image | img_url: '576x' }} 576w,{% endif %}
-                     {% if image.width >= 600 %}{{ image | img_url: '600x' }} 600w,{% endif %}"
-             src="{{ image | img_url: '600x' }}"
+        <img 
+             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+             data-class="LazyLoad"
+             data-src="{{ image | img_url: '720x' }}"
+             data-mob-src="{{ image | img_url: '480x' }}"
              sizes="100vw"
              width="{{ image.width }}"
              height="{{ image.height }}"

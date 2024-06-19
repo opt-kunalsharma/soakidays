@@ -1,9 +1,8 @@
-<script type="lazyload_js" data-src="{{ 'plugins.js' | asset_url }}"></script>
-<script id="setmore_script" type="lazyload_js" data-src="https://my.setmore.com/webapp/js/src/others/setmore_iframe.js"></script>
+<script src="{{ 'plugins.js' | asset_url }}"></script>
+<script id="setmore_script" type="text/javascript" src="https://my.setmore.com/webapp/js/src/others/setmore_iframe.js" async="async"></script>
 <!-- Put all third-party JS files in the vendor.css file and minify the files -->
-  
-<script type="lazyload_js" data-src="{{ 'vendor.js' | asset_url }}"></script>
-<script type="lazyload_js" data-src="{{ 'aos.min.js' | asset_url }}"></script>
+<script src="{{ 'vendor.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'aos.min.js' | asset_url }}" defer="defer"></script>
 {%- if settings.wishlist_enable -%}
 <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
@@ -12,8 +11,8 @@
 </script>
 
 {%- if settings.predictive_search_enabled -%}
-<script type="lazyload_js" data-src="{{ 'predictive-search.js' | asset_url }}"></script>
-<script type="lazyload_js">
+<script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+<script>
   $('body').on('click', function() {
     $('.predictive-search-item').attr('style',$('.predictive-search-item').attr('style')==='display: block;'?'display: none':'display: none;'); 
     $('.predictive-search-input').click(function(){return false;});
@@ -23,15 +22,14 @@
 {%- endif -%}
 
 <!-- Ajax Cart js -->
-<script type="lazyload_js" data-src="{{ 'option_selection.js' | shopify_asset_url }}"></script>
-<script type="lazyload_js" data-src="{{ 'api.jquery.js' | shopify_asset_url }}"></script>
-<script type="lazyload_js" data-src="{{ 'cart.api.js' | asset_url }}"></script>
-  
+<script src="{{ 'option_selection.js' | shopify_asset_url }}" defer="defer"></script>
+<script src="{{ 'api.jquery.js' | shopify_asset_url }}" defer="defer"></script>
+<script src="{{ 'cart.api.js' | asset_url }}" defer="defer"></script>
 <!-- Your main.js file upload this file -->
-<script type="lazyload_js" data-src="{{ 'main.js' | asset_url }}"></script>
+<script src="{{ 'main.js' | asset_url }}" defer="defer"></script>
 
-<script type="lazyload_js" data-src="{{ 'fastclick.min.js' | asset_url }}"></script>
-<script type="lazyload_js" data-src="{{ 'global.js' | asset_url }}"></script>
+<script src="{{ 'fastclick.min.js' | asset_url }}" defer="defer"></script>
+<script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
 
 {% comment %}
 Template-specific js
@@ -53,7 +51,7 @@ Template-specific js
 {%- endif -%}
 
 {% if settings.product_cart_type == 'ajax_spin_cart' or settings.product_cart_type == 'ajax_cart_drawer' %}
-<script type="lazyload_js">
+<script defer="defer">
   $('.ajax-spin-cart').on('click', function() {
     $(this).addClass('loading add-item');
     setTimeout(function () {
@@ -66,7 +64,7 @@ Template-specific js
 </script>
 {% endif %}
 
-<script type="lazyload_js">
+<script defer="defer">
   $('[data-countdown].product-grid-countdown').each(function() {
     var $this = $(this), finalDate = $(this).data('countdown');
     $this.countdown(finalDate, function(event) {
@@ -93,7 +91,7 @@ Template-specific js
 {%- endif -%}
 
 {%- if settings.scroll_top_enable -%}
-<script type="lazyload_js">
+<script defer="defer">
   /* --------------------------------------------------------
             34. scrollUp active
         -------------------------------------------------------- */
@@ -161,7 +159,7 @@ document.addEventListener('contextmenu', function(e) {
 </script>
 {%- endif -%}
 
-<script type="lazyload_js" data-src="{{ "//cdn.shopify.com/s/files/1/0644/2975/2553/t/2/assets/arist.js" }}"></script>
+{{ "//cdn.shopify.com/s/files/1/0644/2975/2553/t/2/assets/arist.js" | script_tag}}
 
 {%- if settings.mrn_custom_script != '' -%}
   <script>

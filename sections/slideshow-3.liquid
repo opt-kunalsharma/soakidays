@@ -131,16 +131,10 @@
                 {%- if block.settings.slide_image_mobile -%}
                 {%- assign image_mobile = block.settings.slide_image_mobile -%}
                 <a href="{{ block.settings.slide_button_url }}" class="image-position-wrapper" style="padding-bottom: {{ 1 | divided_by: image_mobile.aspect_ratio | times: 100 }}%;">
-                  <img srcset="{% if image_mobile.width >= 270 %}{{ image_mobile | img_url: '270x' }} 450w,{% endif %}
-                               {% if image_mobile.width >= 320 %}{{ image_mobile | img_url: '320x' }} 450w,{% endif %}
-                               {% if image_mobile.width >= 450 %}{{ image_mobile | img_url: '450x' }} 450w,{% endif %}
-                               {% if image_mobile.width >= 480 %}{{ image_mobile | img_url: '575x' }} 575w,{% endif %}
-                               {% if image_mobile.width >= 570 %}{{ image_mobile | img_url: '600x' }} 600w,{% endif %}
-                               {% if image_mobile.width >= 600 %}{{ image_mobile | img_url: '768x' }} 768w,{% endif %}
-                               {% if image_mobile.width >= 1100 %}{{ image_mobile | img_url: '1100x' }} 1100w,{% endif %}
-                               {% if image_mobile.width >= 1920 %}{{ image_mobile | img_url: '1920x' }} 1920w{% endif %}"
-                       loading="lazy"
-                       src="{{ image_mobile | img_url: '1920x' }}"
+                  <img
+                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII="
+                       data-class="LazyLoad"
+                       data-src="{{ image_mobile | img_url: '480x' }}"
                        sizes="100vw"
                        width="{{ image_mobile.width }}"
                        height="{{ image_mobile.height }}"
@@ -156,15 +150,7 @@
                 {%- if block.settings.slide_image -%}
                 {%- assign image = block.settings.slide_image -%}
                 <a href="{{ block.settings.slide_button_url }}" class="image-position-wrapper" style="padding-bottom: {{ 1 | divided_by: image.aspect_ratio | times: 100 }}%;">
-                  <img srcset="{% if image.width >= 270 %}{{ image | img_url: '270x' }} 270w,{% endif %}
-                               {% if image.width >= 320 %}{{ image | img_url: '320x' }} 320w,{% endif %}
-                               {% if image.width >= 450 %}{{ image | img_url: '450x' }} 450w,{% endif %}
-                               {% if image.width >= 480 %}{{ image | img_url: '575x' }} 575w,{% endif %}
-                               {% if image.width >= 570 %}{{ image | img_url: '600x' }} 600w,{% endif %}
-                               {% if image.width >= 600 %}{{ image | img_url: '600x' }} 600w,{% endif %}
-                               {% if image.width >= 1100 %}{{ image | img_url: '1100x' }} 1100w,{% endif %}
-                               {% if image.width >= 1900 %}{{ image | img_url: '1920x' }} 1920w{% endif %}"
-                       loading="lazy"
+                  <img 
                        src="{{ image | img_url: '1920x' }}"
                        sizes="100vw"
                        width="{{ image.width }}"

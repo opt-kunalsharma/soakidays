@@ -17,7 +17,7 @@ endif
 {% if theme_rtl %}
 <!-- Link your style.css and responsive.css files below -->
 {{ 'rtl-global.css' | asset_url | stylesheet_tag }}
-{{ 'font-icons.css' | asset_url | stylesheet_tag }}
+<link data-href="{{ 'font-icons.css' | asset_url }}" rel="stylesheet" />
 {{ 'rtl-bootstrap.min.css' | asset_url | stylesheet_tag }}
 {{ 'plugins.css' | asset_url | stylesheet_tag }}
 {{ 'aos.min.css' | asset_url | stylesheet_tag }}
@@ -29,7 +29,7 @@ endif
 {% else %}
 <!-- Link your style.css and responsive.css files below -->
 {{ 'global.css' | asset_url | stylesheet_tag }}
-{{ 'font-icons.css' | asset_url | stylesheet_tag }}
+<link data-href="{{ 'font-icons.css' | asset_url }}" rel="stylesheet" />
 {{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
 {{ 'plugins.css' | asset_url | stylesheet_tag }}
 {{ 'aos.min.css' | asset_url | stylesheet_tag }}
